@@ -7,7 +7,7 @@ configuration:
   analytics:
     provider: plausible
   locale: en-US
-  baseUrl: https://github.com/Hilian866/ObsidianWebsiteTest.git
+  baseUrl: Hilian866.github.io/ObsidianWebsiteTest
   ignorePatterns:
     - private
     - templates
@@ -87,7 +87,7 @@ plugins:
     enabled: true
     options:
       markdownLinkResolution: shortest
-      openLinksInNewTab: true # <-----------------------------------------------------------------------------------------------------------------------
+      openLinksInNewTab: true
     order: 60
   - source: github:quartz-community/description
     enabled: true
@@ -157,7 +157,7 @@ plugins:
       position: left
       priority: 50
   - source: github:quartz-community/graph
-    enabled: true
+    enabled: false
     layout:
       position: right
       priority: 10
@@ -227,9 +227,9 @@ plugins:
     enabled: true
     options:
       links:
-        "Link 1": "javascript:window.open('https://github.com/jackyzha0/quartz', '_blank');void(0);"
-        "Link 2": "javascript:window.open('https://github.com/jackyzha0/quartz', '_blank');void(0);"
-        "GitHub": "javascript:window.open('https://github.com/tuo-profilo', '_blank');void(0);"
+        "Link 1": "https://github.com/jackyzha0/quartz"
+        "Link 2": "https://github.com/jackyzha0/quartz"
+        "GitHub": "https://github.com/tuo-profilo"
   # ==========================================================================
   - source: github:quartz-community/recent-notes
     enabled: false
