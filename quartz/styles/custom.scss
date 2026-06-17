@@ -1,3 +1,740 @@
-@use "./variables.scss" as *;
+/* ==========================================================================
+   1. CORE TOKENS & VARIABILI DI SISTEMA (ROUTING GLOBALE)
+   ========================================================================== */
 
-// put your custom CSS here!
+:root {
+  /* --- ASSEGNAZIONE FONT NATIVI --- */
+  --font-testo:
+    "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  --font-codice: "IBM Plex Mono", "Fira Code", Consolas, monospace !important;
+
+  /* --- LOGICA OPERATIVA: TEMA CHIARO (DISATTIVATO / COMMENTED OUT) --- 
+  &, &[saved-theme="light"] {
+    --colore-sfondo-main: #fbf7ee !important;
+    --colore-sfondo-sidebar: #f6f6f6 !important;
+    --colore-sfondo-card: #fdfbfa !important;
+    --colore-bordo: #e4dec9 !important;
+    --colore-testo-main: #2e2823 !important;
+    --colore-testo-muted: #756a5f !important;
+    --colore-accento: #b83b26 !important;
+    --colore-sfondo-codice: #ece5d3 !important;
+    --colore-testo-codice: #2e2823 !important;
+
+    --callout-info-bg: #eaf6f6 !important;
+    --callout-info-bordo: #bce3e4 !important;
+    --callout-warning-bg: #fdf5ea !important;
+    --callout-warning-bordo: #f5dcb3 !important;
+
+    --colore-link-esterno: #ff0000 !important;
+  }
+  -------------------------------------------------------------------------- */
+
+  /* --- LOGICA OPERATIVA: TEMA SCURO (PRODUZIONE DI DEFAULT) --- */
+  --colore-sfondo-main: #1e1a17 !important;
+  --colore-sfondo-sidebar: #282828 !important;
+  --colore-sfondo-card: #25201d !important;
+  --colore-bordo: #2f2824 !important;
+  --colore-testo-main: #ddc79d !important;
+  --colore-testo-muted: #282828 !important;
+  --colore-accento: #e0533c !important;
+  --colore-sfondo-codice: #000000 !important;
+  --colore-testo-codice: #e2d7cd !important;
+
+  --callout-info-bg: #162425 !important;
+  --callout-info-bordo: #243d40 !important;
+  --callout-warning-bg: #272118 !important;
+  --callout-warning-bordo: #443725 !important;
+
+  /* Token per Testo ed Icona dei Link Esterni (Modalità Scura) */
+  --colore-link-esterno: #15ff00 !important;
+}
+
+:root[saved-theme="dark"] {
+  --colore-sfondo-main: #1e1a17 !important;
+  --colore-sfondo-sidebar: #282828 !important;
+  --colore-sfondo-card: #25201d !important;
+  --colore-bordo: #2f2824 !important;
+  --colore-testo-main: #ddc79d !important;
+  --colore-testo-muted: #282828 !important;
+  --colore-accento: #e0533c !important;
+  --colore-sfondo-codice: #000000 !important;
+  --colore-testo-codice: #e2d7cd !important;
+
+  --callout-info-bg: #162425 !important;
+  --callout-info-bordo: #243d40 !important;
+  --callout-warning-bg: #272118 !important;
+  --callout-warning-bordo: #443725 !important;
+
+  --colore-link-esterno: #15ff00 !important;
+}
+
+/* ==========================================================================
+   2. RESET GLOBALE & FIX LAYOUT (RISOLUZIONE TESTO TAGLIATO)
+   ========================================================================== */
+
+* {
+  box-sizing: border-box !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+}
+
+body {
+  font-family: var(--font-testo) !important;
+  background-color: var(--colore-sfondo-main) !important;
+  color: var(--colore-testo-main) !important;
+}
+
+div.center {
+  overflow-x: visible !important;
+  word-wrap: break-word !important;
+  max-width: 100% !important;
+}
+
+/* Override Sfondi Strutturali per Tema (Solo Dark Attivo) */
+/* [saved-theme="light"] { div.right.sidebar, div.center, #quartz-body { background-color: #f6f6f6 !important; } } */
+
+body,
+[saved-theme="dark"] {
+  div.right.sidebar,
+  div.center,
+  #quartz-body {
+    background-color: #282828 !important;
+  }
+}
+
+/* ==========================================================================
+   3. BLOCCO TIPOGRAFIA E COLLEGAMENTI IPERTESTUALI (STRUTTURA CORE)
+   ========================================================================== */
+
+h1,
+h2,
+h3,
+h4,
+.article-title {
+  font-family: var(--font-testo) !important;
+  font-weight: 700 !important;
+  color: var(--colore-testo-main) !important;
+}
+
+p,
+span,
+li,
+a {
+  font-family: var(--font-testo) !important;
+}
+
+.content-meta,
+.meta-info {
+  color: var(--colore-testo-muted) !important;
+}
+
+a.external,
+a.external-link,
+a[href^="http://"],
+a[href^="https://"] {
+  color: var(--colore-link-esterno) !important;
+  text-decoration: none !important;
+
+  svg.external-icon {
+    fill: var(--colore-link-esterno) !important;
+    transition: fill 0.15s ease !important;
+  }
+}
+
+/* --- LOGICA CONTROLLO ELEMENTI IN LINEA (LIGHT COMMENTATA) --- 
+[saved-theme="light"] {
+  p, strong { color: #2e2823 !important; }
+  p strong { font-weight: 700 !important; }
+  footer a, footer p a { color: #fc8414 !important; }
+  pre button.clipboard-button svg { fill: #fc8414 !important; color: #fc8414 !important; }
+  table > thead > tr > th:nth-child(1) { color: #2e2823 !important; background: transparent !important; }
+}
+-------------------------------------------------------------------------- */
+
+body,
+[saved-theme="dark"] {
+  p,
+  strong {
+    color: #e2d7cd !important;
+  }
+  p strong {
+    font-weight: 700 !important;
+  }
+  ul li::marker {
+    color: #e2d7cd !important;
+  }
+
+  footer a,
+  footer p a {
+    color: #eac435 !important;
+  }
+  pre button.clipboard-button svg {
+    fill: #fc8414 !important;
+    color: #fc8414 !important;
+  }
+  pre,
+  footer {
+    background-color: #d4000000 !important;
+  }
+
+  h1.article-title {
+    font-size: 2.2rem !important;
+    color: #ddc79d !important;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  h2[id] {
+    color: #ddc79d !important;
+    font-size: 1.6rem !important;
+    margin-bottom: 12px !important;
+    a.internal svg {
+      color: #e4852c !important;
+    }
+  }
+  h3[id] {
+    color: #ddc79d !important;
+    font-size: 1.3rem !important;
+    margin-bottom: 12px !important;
+    a.internal svg {
+      color: #e4852c !important;
+    }
+  }
+  p.content-meta,
+  p.content-meta time,
+  p.content-meta span {
+    color: #e2d7cd !important;
+    margin-bottom: 30px !important;
+  }
+
+  table > thead > tr > th {
+    color: #ddc79d !important;
+    background: transparent !important;
+  }
+  td,
+  td a,
+  td a.internal,
+  table a {
+    color: #dadada !important;
+    background: transparent !important;
+    text-decoration: none !important;
+  }
+  td a:hover {
+    color: #ffb055 !important;
+  }
+
+  a,
+  .page a,
+  a.internal,
+  [data-slug] a {
+    color: #e9973f !important;
+    background: transparent !important;
+    background-image: none !important;
+    text-decoration: none !important;
+    &:hover {
+      color: #ffbf48 !important;
+    }
+  }
+}
+
+/* Stato Hover: Effetto al passaggio del mouse basato sulla variabile di sistema */
+pre button:hover,
+pre .clipboard-button:hover {
+  /* Iniezione locale o sovrascrittura della variabile dinamica in spazio oklch */
+  --background-modifier-active-hover: color-mix(in oklch, var(--colore-accento) 25%, transparent);
+
+  /* Utilizzo della variabile per lo sfondo dell'elemento */
+  background-color: var(--background-modifier-active-hover) !important;
+
+  /* CANCELLAZIONE DEL BORDO VIOLA NATIVO (FIX CRITICO) */
+  /* outline: none !important; */
+  outline-color: #ffe601 !important;
+  box-shadow: none !important;
+  border-color: #ffe601 !important; /* Rimuove eventuali bordi standard */
+
+  /* Inversione di contrasto: testo e icone scure sullo sfondo d'accento illuminato */
+  color: #1e1a17 !important;
+
+  svg {
+    fill: #1e1a17 !important; /* Forza il colore dell'icona SVG in hover */
+    color: #1e1a17 !important;
+    outline: none !important; /* Sicurezza interna sull'SVG */
+    box-shadow: none !important;
+  }
+}
+
+/* ==========================================================================
+   4. COMPONENTI INTERFACCIA SINISTRA (SIDEBAR & NAVIGAZIONE)
+   ========================================================================== */
+
+.left.sidebar {
+  background-color: var(--colore-sfondo-sidebar) !important;
+  border-right: 1px solid var(--colore-bordo) !important;
+
+  .page-title,
+  .brand-title {
+    a {
+      font-family: var(--font-testo) !important;
+      color: #dbc59a !important;
+      transition: color 0.15s ease-in-out !important;
+      &:hover {
+        color: #ffb055 !important;
+      }
+    }
+  }
+}
+
+.explorer {
+  .title-button h2 {
+    font-family: var(--font-testo) !important;
+    background: transparent !important;
+    color: #dbc59a !important;
+  }
+  .folder-title,
+  .nav-folder-title {
+    font-family: var(--font-testo) !important;
+    font-weight: 600 !important;
+    color: #ffb055 !important;
+  }
+
+  a.nav-file-title.tree-item-self {
+    font-family: var(--font-testo) !important;
+    color: #dbc59a !important;
+    transition:
+      color 0.15s ease,
+      background-color 0.15s ease !important;
+    &:hover {
+      color: #dbc59a !important;
+      background-color: transparent !important;
+    }
+  }
+
+  a.nav-file-title.tree-item-self.active.is-active {
+    font-family: var(--font-testo) !important;
+    color: #ffe601 !important;
+    background-color: transparent !important;
+    &:hover {
+      background-color: transparent !important;
+    }
+  }
+
+  a.nav-file-title.tree-item-self:not(.active):not(.is-active) {
+    font-family: var(--font-testo) !important;
+    color: #e2d7cd !important;
+    background-color: transparent !important;
+    transition:
+      color 0.1s ease,
+      background-color 0.15s ease !important;
+    &:hover {
+      color: #ffb055 !important;
+      background-color: transparent !important;
+    }
+  }
+}
+
+/* ==========================================================================
+   5. COMPONENTI INTERFACCIA DESTRA (TOP NAVBAR & TOC)
+   ========================================================================== */
+
+.breadcrumb-container {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+.breadcrumb-element a,
+.breadcrumb-element p,
+.breadcrumb-element {
+  color: #e2d7cd !important;
+  font-size: 1rem !important;
+}
+.breadcrumb-element p {
+  color: #e2d7cd !important;
+}
+
+#list-44.toc-content a {
+  font-family: var(--font-testo) !important;
+  transition: color 0.15s ease !important;
+  color: #e2d7cd !important;
+  &:hover {
+    color: #e0533c !important;
+  }
+}
+
+.toc-container,
+.toc-content,
+[data-for] {
+  a.in-view,
+  a:not(.in-view) {
+    font-family: var(--font-testo) !important;
+    text-decoration: none !important;
+    background: transparent !important;
+  }
+
+  a:not(.in-view) {
+    color: #756a5f !important;
+    &:hover {
+      color: var(--colore-accento) !important;
+    }
+  }
+
+  a.in-view {
+    font-weight: 700 !important;
+    color: #ffb055 !important;
+  }
+
+  li.depth-0 {
+    font-weight: 600 !important;
+  }
+  li.depth-1 {
+    padding-left: 10px !important;
+    font-size: 0.9em !important;
+  }
+}
+
+/* ==========================================================================
+   6. BLOCCHI DI CODICE (SINTASSI E STRUTTURE PRE)
+   ========================================================================== */
+
+.code-block-container {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+
+  .code-label {
+    font-family: var(--font-testo) !important;
+    font-weight: 500 !important;
+    color: var(--colore-testo-muted) !important;
+    padding: 0px !important;
+  }
+}
+
+pre {
+  position: relative !important;
+  background-color: var(--colore-sfondo-codice) !important;
+  border: 1px solid var(--colore-bordo) !important;
+  padding: 0rem !important;
+  overflow-x: auto !important;
+
+  & > button,
+  .clipboard-button {
+    position: absolute !important;
+    top: 0.5rem !important;
+    right: 0.5rem !important;
+    z-index: 10 !important;
+    margin: 0 !important;
+    padding: 4px !important;
+    cursor: pointer !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.15) !important;
+    }
+  }
+}
+
+pre > code,
+code {
+  font-family: var(--font-codice) !important;
+  color: var(--colore-testo-codice) !important;
+}
+
+body,
+[saved-theme="dark"] {
+  pre code {
+    color: #eac435 !important;
+    background-color: #1f1f1f !important;
+  }
+  pre code span,
+  pre code:contains("!") {
+    color: #888888 !important;
+  }
+  p code {
+    color: #e2d7cd !important;
+    background-color: #242424 !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+    border: 1px solid #444444 !important;
+  }
+}
+
+/* ==========================================================================
+   7. MODULI INTERATTIVI (BARRA RICERCA & SWITCH BOTTONI)
+   ========================================================================== */
+
+#quartz-body > div.left.sidebar > div.flex-component {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 0.5rem !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+
+  /* RIMOZIONE EMISSIONE LOGICA INTERFACCIA: DARKMODE SWITCHER */
+  button.darkmode {
+    display: none !important;
+  }
+
+  /* --- SETUP PULSANTI COMUNI RESIDUI --- */
+  button.search-button,
+  button.readermode {
+    background-color: transparent !important;
+    background: transparent !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition:
+      color 0.15s ease,
+      background-color 0.15s ease,
+      border-color 0.15s ease !important;
+
+    svg,
+    path,
+    circle,
+    g {
+      fill: transparent !important;
+      stroke: #96877b !important;
+    }
+
+    &:hover svg,
+    &:hover path,
+    &:hover circle,
+    &:hover g {
+      fill: transparent !important;
+      stroke: #ffb055 !important;
+    }
+  }
+
+  /* --- COMPONENTE BARRA DI RICERCA --- */
+  button.search-button {
+    border-radius: 6px !important;
+    width: 100% !important;
+    background-color: #fbf7ee !important;
+    border: 1px solid #2f2824 !important;
+
+    &:hover {
+      border-color: #ffb055 !important;
+      p {
+        color: #ffb055 !important;
+      }
+    }
+
+    p {
+      font-size: 0.9rem !important;
+      font-weight: 500 !important;
+      transition: color 0.15s ease !important;
+      &,
+      &[class],
+      & * {
+        color: #96877b !important;
+      }
+    }
+  }
+
+  /* --- COMPONENTI SWITCH RESIDUI (READERMODE) --- */
+  button.readermode {
+    border-radius: 6px !important;
+    background-color: #eefbf0 !important;
+    border: 1px solid #2f2824 !important;
+
+    &:hover {
+      background-color: #ffb055 !important;
+      border-color: #ffb055 !important;
+    }
+  }
+}
+
+#quartz-body > div.center > article > div > ul.contains-task-list input[type="checkbox"] {
+  background-color: #ffffff !important;
+}
+
+*::selection {
+  background-color: #997449 !important;
+  color: #e2d7cd !important;
+}
+
+blockquote {
+  border-left: 4px solid var(--colore-accento) !important;
+  font-family: var(--font-testo) !important;
+  font-style: italic !important;
+  padding: 0.5rem 1rem !important;
+  margin: 1.5rem 0 !important;
+  background-color: var(--colore-sfondo-card) !important;
+  color: #e2d7cd !important;
+}
+
+/* ==========================================================================
+   8. CONFIGURAZIONE INTERNA DEI CALLOUT (STILE OBSIDIAN - SENZA ICONE)
+   ========================================================================== */
+
+.callout {
+  background-color: var(--colore-sfondo-card) !important;
+  border: 1px solid var(--colore-bordo) !important;
+  border-left: 4px solid var(--colore-accento) !important;
+
+  .callout-icon {
+    display: none !important;
+  }
+  .callout-title {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  &__header {
+    font-family: var(--font-testo) !important;
+    font-weight: 700 !important;
+    color: var(--colore-accento) !important;
+  }
+  &__content {
+    font-family: var(--font-testo) !important;
+    color: var(--colore-testo-main) !important;
+  }
+
+  &--abstract,
+  &--info {
+    background-color: var(--callout-info-bg) !important;
+    border-color: var(--callout-info-bordo) !important;
+    border-left-color: #2b9393 !important;
+    .callout__header {
+      color: #2b9393 !important;
+    }
+  }
+  &--warning {
+    background-color: var(--callout-warning-bg) !important;
+    border-color: var(--callout-warning-bordo) !important;
+    border-left-color: #d97706 !important;
+    .callout__header {
+      color: #d97706 !important;
+    }
+  }
+}
+
+/* --- DISPACCIO DELLE CLASSI COMPOSITE (DATA-CALLOUT LIGHT COMMENTATE) ---
+[saved-theme="light"] { ... }
+-------------------------------------------------------------------------- */
+
+/* --- DISPACCIO DELLE CLASSI COMPOSITE (DATA-CALLOUT SCURO / DEFAULT) --- */
+body,
+[saved-theme="dark"] {
+  .callout[data-callout="note"],
+  .callout[data-callout="todo"],
+  .callout[data-callout="abstract"],
+  .callout[data-callout="summary"],
+  .callout[data-callout="tldr"] {
+    background-color: #2a3939 !important;
+    border: 1px solid #2a3939 !important;
+    border-left: 4px solid #53dfdd !important;
+    .callout-title {
+      color: #53dfdd !important;
+    }
+  }
+  .callout[data-callout="info"],
+  .callout[data-callout="important"] {
+    background-color: #262e3c !important;
+    border: 1px solid #262e3c !important;
+    border-left: 4px solid #3b82f6 !important;
+    .callout-title {
+      color: #3b82f6 !important;
+    }
+  }
+  .callout[data-callout="tip"],
+  .callout[data-callout="hint"] {
+    background-color: #0b2316 !important;
+    border: 1px solid #0b2316 !important;
+    border-left: 4px solid #22c55e !important;
+    .callout-title {
+      color: #22c55e !important;
+    }
+  }
+  .callout[data-callout="success"],
+  .callout[data-callout="check"],
+  .callout[data-callout="done"] {
+    background-color: #092518 !important;
+    border: 1px solid #092518 !important;
+    border-left: 4px solid #10b981 !important;
+    .callout-title {
+      color: #10b981 !important;
+    }
+  }
+  .callout[data-callout="question"],
+  .callout[data-callout="help"],
+  .callout[data-callout="faq"] {
+    background-color: #2a1220 !important;
+    border: 1px solid #2a1220 !important;
+    border-left: 4px solid #ec4899 !important;
+    .callout-title {
+      color: #ec4899 !important;
+    }
+  }
+  .callout[data-callout="warning"],
+  .callout[data-callout="caution"],
+  .callout[data-callout="attention"] {
+    background-color: #3a3128 !important;
+    border: 1px solid #3a3128 !important;
+    border-left: 4px solid #f59e0b !important;
+    .callout-title {
+      color: #f59e0b !important;
+    }
+  }
+  .callout[data-callout="failure"],
+  .callout[data-callout="fail"],
+  .callout[data-callout="missing"] {
+    background-color: #2d1414 !important;
+    border: 1px solid #2d1414 !important;
+    border-left: 4px solid #ef4444 !important;
+    .callout-title {
+      color: #ef4444 !important;
+    }
+  }
+  .callout[data-callout="danger"],
+  .callout[data-callout="error"] {
+    background-color: #2a0f0f !important;
+    border: 1px solid #2a0f0f !important;
+    border-left: 4px solid #f87171 !important;
+    .callout-title {
+      color: #f87171 !important;
+    }
+  }
+  .callout[data-callout="bug"] {
+    background-color: #271033 !important;
+    border: 1px solid #271033 !important;
+    border-left: 4px solid #d946ef !important;
+    .callout-title {
+      color: #d946ef !important;
+    }
+  }
+  .callout[data-callout="example"] {
+    background-color: #181b20 !important;
+    border: 1px solid #181b20 !important;
+    border-left: 4px solid #94a3b8 !important;
+    .callout-title {
+      color: #94a3b8 !important;
+    }
+  }
+  .callout[data-callout="quote"],
+  .callout[data-callout="cite"] {
+    background-color: transparent !important;
+    border: none !important;
+    border-left: 4px solid #475569 !important;
+    .callout-title {
+      color: #94a3b8 !important;
+    }
+  }
+}
+
+/* Nasconde la riga dei crediti e del copyright nel footer */
+footer p {
+  display: none !important;
+}
+
+/* Mantieni visibile solo la lista dei tuoi link personalizzati */
+footer ul {
+  display: flex !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* Nasconde completamente il componente del Graph View dall'interfaccia */
+.graph,
+.desktop-only.graph,
+#graph-container {
+  display: none !important;
+}
