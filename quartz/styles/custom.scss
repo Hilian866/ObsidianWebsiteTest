@@ -738,10 +738,3 @@ footer ul {
 #graph-container {
   display: none !important;
 }
-
-/* Fix per il routing dell'Explorer su GitHub Pages */
-.folder-container a,
-.folder-outer a {
-  position: relative;
-  z-index: 2;
-}
