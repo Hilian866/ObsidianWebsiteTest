@@ -7,7 +7,7 @@ configuration:
   analytics:
     provider: plausible
   locale: en-US
-  baseUrl: mysite.github.io
+  baseUrl: https://github.com/Hilian866/ObsidianWebsiteTest.git
   ignorePatterns:
     - private
     - templates
